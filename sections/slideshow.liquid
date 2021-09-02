@@ -1,3 +1,4 @@
+{% comment %} added code - am. added logo image {% endcomment %}
 <div
   data-section-id="{{ section.id }}"
   data-section-type="slideshow-section"
@@ -212,15 +213,8 @@
                 <div class="hero__text-wrap">
                   <div class="page-width">
                     <div class="hero__text-content {{ block.settings.text_align }}">
-                      <div class="hero__text-shadow">
-                        
-                        {% comment %} added code - am. show logo image{% endcomment %}
-                        {%- if image_slide_logo -%}
-                          <!-- <div class="slideshow-logo"  >
-                              <img class="slideshow-logo-img">
-                          </div> -->
-                        {%- endif -%} 
-                        
+                      <div class="hero__text-shadow">                        
+                      
                         {%- if has_logo_image -%}
                         {%- assign img_url_slide_logo = block.settings.image_slide_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
                           <div class="slideshow-logo">
@@ -290,7 +284,6 @@
   {%- endif -%}
 </div>
 
-{% comment %} added code - am. added logo image to schema {% endcomment %}
 {% schema %}
   {
     "name": "Slideshow",
