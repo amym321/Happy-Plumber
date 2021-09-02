@@ -155,6 +155,11 @@
                 if block.settings.image_mobile != blank
                   assign has_mobile_image = true
                 endif
+
+                assign has_logo_image = false
+                if block.settings.image_slide_logo != blank
+                  assign has_logo_image = true
+                endif
               -%}
 
               <div class="hero__image-wrapper{% unless hero_text %} hero__image-wrapper--no-overlay{% endunless %}">
@@ -208,6 +213,27 @@
                   <div class="page-width">
                     <div class="hero__text-content {{ block.settings.text_align }}">
                       <div class="hero__text-shadow">
+                        
+                        {% comment %} added code - am. show logo image{% endcomment %}
+                        {%- if image_slide_logo -%}
+                          <!-- <div class="slideshow-logo"  >
+                              <img class="slideshow-logo-img">
+                          </div> -->
+                        {%- endif -%} 
+                        
+                        {%- if has_logo_image -%}
+                        {%- assign img_url_slide_logo = block.settings.image_slide_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                          <div class="slideshow-logo">
+                            <img 
+                              src="{{ block.settings.image_slide_logo | img_url: '300x' }}"
+                              data-src="{{ img_url_slide_logo }}"
+                              data-aspectratio="{{ block.settings.image_slide_logo.aspect_ratio }}"
+                              data-sizes="auto"
+                              alt="{{ block.settings.image_slide_logo.alt | escape }}"
+                              class="">
+                            </div>
+                        {%- endif -%}
+                        
                         {%- unless block.settings.top_subheading == blank -%}
                           <div class="hero__top-subtitle">
                             <div class="animation-cropper"><div class="animation-contents">
@@ -264,6 +290,7 @@
   {%- endif -%}
 </div>
 
+{% comment %} added code - am. added logo image to schema {% endcomment %}
 {% schema %}
   {
     "name": "Slideshow",
@@ -536,6 +563,11 @@
                 "label": "Bottom right"
               }
             ]
+          },
+          {
+            "type": "image_picker",
+            "id": "image_slide_logo",
+            "label": "Logo image"
           }
         ]
       }
